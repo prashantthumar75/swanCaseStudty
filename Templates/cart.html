@@ -34,11 +34,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        prashantthumar75@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                       +91 9904926409
                     </div>
                 </div>
             </div>
@@ -49,32 +49,24 @@
         <div class="nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-                    <a href="#" class="navbar-brand">MENU</a>
+                    <a href="#" class="navbar-brand">MENU-</a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="/" class="nav-item nav-link">Home</a>
-                            <a href="/product-list" class="nav-item nav-link">Products</a>
-                            <a href="/product-detail" class="nav-item nav-link">Product Detail</a>
-                            <a href="/cart" class="nav-item nav-link">Cart</a>
-                            <a href="/checkout" class="nav-item nav-link active">Checkout</a>
-                            <a href="/my-account" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="/wishlist" class="dropdown-item">Wishlist</a>
-                                    <a href="/login/" class="dropdown-item">Login & Register</a>
-                                    <a href="/contact" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
+
+                            <a href="/index/" class="nav-item nav-link">Home</a>
+                            <a href="/product-list/" class="nav-item nav-link">SHOP</a>
+                            <a href="/brand/" class="nav-item nav-link">SHOP BY BRAND</a>
+                            <a href="/cart/" class="nav-item nav-link">Cart</a>
+                            <a href="/profile/" class="nav-item nav-link">My Account</a>
+                            <a href="/loginuser/" class="nav-item nav-link">Login & Register </a>
                         </div>
                           <div class="navbar-nav ml-auto">
-                            <a href="/my-account" class="nav-item nav-link ">{{user}}</a>
+                            <a href="/profile/" class="nav-item nav-link ">{{user}}</a>
                         </div>
-                      </div>
                     </div>
                 </nav>
             </div>
@@ -87,26 +79,25 @@
                 <div class="row align-items-center">
                     <div class="col-md-3">
                         <div class="logo">
-                            <a href="/">
+                            <a href="/index/">
                                 <img src="/static/img/logo.png" alt="Logo">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
+                             <form method='GET' action="/search/">
+                                <input type="text"  name='q' value='{{ request.GET.q }}' placeholder="Search products">
+                                <button><i class="fa fa-search"></i></button>
+                            </form>
+                       </div>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="/wishlist" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="/email/" class="btn cart">
+
+                             <a href="/cart" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
+                                <span>({% if request.user|cart_item_count != 0 %}{{ request.user|cart_item_count }}{% endif %})</span>
                             </a>
                         </div>
                     </div>
@@ -145,7 +136,7 @@
                                     </thead>
                                     <tbody class="align-middle">
 
-{% if user == request.user%}
+                                    {% if user == request.user%}
                                     {% for item in cart %}
                                     {% for obj in item.items.all %}
 
@@ -157,67 +148,13 @@
                                                 </div>
                                             </td>
 
-<!--                                            <td id="box1">55 </td>-->
-<!--    <td><input style="color:black; background:white" id="box2" type="text" value="55" oninput="calculate();" /></td>-->
-<!--    <td><input style="color:black; background:white" id="box1" type="text" value="5" oninput="calculate();" /></td>-->
-
-<!--                                            <td id="box2">45</td>-->
-<!--    <td><input style="color:black; background:white" id="result" /></td>-->
-<!--    <td><input style="color:black; background:white" id="result" value="" /></td>-->
-
+                                            <td id="basePrice"> {{obj.item.price}} </td>
+                                            <td id="quantity"> {{obj.quantity}} </td>
+                                            <td id="price"> {{obj.item.price}} </td>
                                         </tr>
-{% endfor %}
                                     {% endfor %}
-{% endif %}
-
-<table width="80%" border="0">
-  <tr>
-    <th>Box 1</th>
-    <th>Box 2</th>
-    <th>Result</th>
-  </tr>
-                        {% for item in cart %}
-{% for obj in item.items.all %}
-
-  <tr>
-    <td><input id="box1" type="text" oninput="calculate();" /></td>
-    <td><input id="box2" type="text" oninput="calculate();" /></td>
-    <td><input id="result" /></td>
-  </tr>
-{% endfor %}
-{% endfor %}
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-</table>
-<script>
-
-
-    function calculate() {
-        var myBox1 = document.getElementById('box1').value;
-        var myBox2 = document.getElementById('box2').value;
-        var result = document.getElementById('result');
-        var myResult = myBox1 * myBox2;
-          document.getElementById('result').value = myResult;
-    }
-</script>
-<!--        var total = document.getElementById('total');-->
-
-<!--          document.getElementById('result').value = myResult;-->
-
-<!--        <h6>Base Price : <span id="basePrice"> 100 </span></h6>-->
-<!--        <div class="d-flex justify-content-center mt-3">-->
-<!--            <button id="minusBtn" class="btn btn-info btn-sm mr-3">-</button>-->
-<!--            <h6>Quantity : <span id="quantity">5</span></h6>-->
-<!--            <button id="plusBtn" class="btn btn-info btn-sm ml-3">+</button>-->
-<!--        </div>-->
-<!--        <h6 class="mt-2"> Price : <span id="price"> </h6>-->
-<!--            <h6 class="ml-5 pl-4"></span> + <span id="gst"> </span>(18% Gst)</h6>-->
-<!--        <h6 class="mt-2"> Grand Total : <span id="GrandTotal">0 </h6>-->
-<!--    </div>-->
-
+                                    {% endfor %}
+                                    {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -241,7 +178,6 @@
                                             <h2 id="GrandTotal">Grand Total<span> 0 </span></h2>
                                         </div>
                                         <div class="cart-btn">
-                                            <button>Update Cart</button>
                                     <form method="post" action="/email/">
                                     {% csrf_token %}
                                             <button>Buynow</button>

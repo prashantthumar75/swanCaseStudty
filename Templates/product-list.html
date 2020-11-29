@@ -35,11 +35,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        prashantthumar75@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                        +91 9904926409
                     </div>
                 </div>
             </div>
@@ -47,13 +47,6 @@
         <!-- Top bar End -->
         
         <!-- Nav Bar Start -->
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{message.tags}}" role="alert">
-            {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
 
         <div class="nav">
             <div class="container-fluid">
@@ -65,23 +58,15 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="/index" class="nav-item nav-link">Home</a>
-                            <a href="/product-list" class="nav-item nav-link">Products</a>
-                            <a href="/product-detail" class="nav-item nav-link">Product Detail</a>
-                            <a href="/cart" class="nav-item nav-link">Cart</a>
-                            <a href="/checkout" class="nav-item nav-link active">Checkout</a>
-                            <a href="/my-account" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="/wishlist" class="dropdown-item">Wishlist</a>
-                                    <a href="/login" class="dropdown-item">Login & Register</a>
-                                    <a href="/contact" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
-                        </div>
+                               <a href="/index/" class="nav-item nav-link">Home</a>
+                            <a href="/product-list/" class="nav-item nav-link">SHOP</a>
+                            <a href="/brand/" class="nav-item nav-link">SHOP BY BRAND</a>
+                            <a href="/cart/" class="nav-item nav-link">Cart</a>
+                            <a href="/profile/" class="nav-item nav-link">My Account</a>
+                            <a href="/loginuser/" class="nav-item nav-link">Login & Register </a>
+               </div>
                               <div class="navbar-nav ml-auto">
-                            <a href="/my-account" class="nav-item nav-link ">{{user}}</a>
+                            <a href="/profile/" class="nav-item nav-link ">{{user}}</a>
                         </div>
                     </div>
                 </nav>
@@ -103,17 +88,14 @@
                     <div class="col-md-6">
                         <div class="search">
                             <form method='GET' action="/search/">
-                                <input type="text"  name='q' value='{{ request.GET.q }}' placeholder="Search">
+                                <input type="text"  name='q' value='{{ request.GET.q }}' placeholder="Search products">
                                 <button><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="/wishlist" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
+
                             <a href="/cart" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>({% if request.user|cart_item_count != 0 %}{{ request.user|cart_item_count }}{% endif %})</span>
@@ -144,7 +126,6 @@
                     <div class="col-lg-8">
                         <div class="row">
                             {% for item in object_list %}
-
                             <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="product-title">
@@ -166,13 +147,11 @@
                 <i id="addToCart" class="fas fa-shopping-cart ml-1"></i>
             </a>
 
-                                            <a href="#"><i class="fa fa-search"></i></a>
                                             <td> <a href="{{ item.get_remove_from_cart_url }}"><button><i class="fa fa-trash"></i></button></a></td>
                                         </div>
                                     </div>
                                     <div class="product-price">
-                                        <h3>{{item.price}} </h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                        <h3> $ {{item.price}} </h3>
                                     </div>
                                 </div>
                             </div>
@@ -204,12 +183,12 @@
 
 
                         <div class="sidebar-widget brands">
-                            {% for item in object_list %}
                             <h2 class="title">Our Brands</h2>
-                            <ul>
-                                <li><a href="#">{{item.get_brand_display}}</a><span>{{item.quantity}}</span></li>
-                            </ul>
-                            {% endfor %}
+
+                                <li>ADDIDAS ( {{add_total}} )</li>
+                                <li>FAMOUS ( {{fm_total}} )</li>
+                                <li> PAPERLINX ( {{px_total}} )</li>
+                                <li> SPOART ENGLAND ( {{se_total}} )</li>
                         </div>
                         
                     </div>

@@ -1,3 +1,7 @@
+{% load static %}
+
+{% load cart_template_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,11 +34,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        prashantthumar75@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                        +91 9904926409
                     </div>
                 </div>
             </div>
@@ -52,23 +56,15 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="/" class="nav-item nav-link">Home</a>
-                            <a href="/product-list" class="nav-item nav-link">Products</a>
-                            <a href="/product-detail" class="nav-item nav-link">Product Detail</a>
-                            <a href="/cart" class="nav-item nav-link">Cart</a>
-                            <a href="/checkout" class="nav-item nav-link active">Checkout</a>
-                            <a href="/my-account" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="/wishlist" class="dropdown-item">Wishlist</a>
-                                    <a href="/login" class="dropdown-item">Login & Register</a>
-                                    <a href="/contact" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
+                                <a href="/index/" class="nav-item nav-link">Home</a>
+                            <a href="/product-list/" class="nav-item nav-link">SHOP</a>
+                            <a href="/brand/" class="nav-item nav-link">SHOP BY BRAND</a>
+                            <a href="/cart/" class="nav-item nav-link">Cart</a>
+                            <a href="/profile/" class="nav-item nav-link">My Account</a>
+                            <a href="/loginuser/" class="nav-item nav-link">Login & Register </a>
                         </div>
-                      <div class="navbar-nav ml-auto">
-                            <a href="/my-account" class="nav-item nav-link ">{{user}}</a>
+                         <div class="navbar-nav ml-auto">
+                            <a href="/profile/" class="nav-item nav-link ">{{user}}</a>
                         </div>
                     </div>
                 </nav>
@@ -89,26 +85,25 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
+                             <form method='GET' action="/search/">
+                                <input type="text"  name='q' value='{{ request.GET.q }}' placeholder="Search products">
+                                <button><i class="fa fa-search"></i></button>
+                            </form>
+                       </div>
                     </div>
                     <div class="col-md-3">
                         <div class="user">
-                            <a href="/wishlist" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="/cart" class="btn cart">
+
+                             <a href="/cart" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
+                                <span>({% if request.user|cart_item_count != 0 %}{{ request.user|cart_item_count }}{% endif %})</span>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Bottom Bar End -->
+        <!-- Bottom Bar End --> 
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
@@ -116,76 +111,101 @@
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active">Contact</li>
+                    <li class="breadcrumb-item active">Profile</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Contact Start -->
-        <div class="contact">
+        <!-- My Account Start -->
+        <div class="my-account">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="contact-info">
-                            <h2>Our Office</h2>
-                            <h3><i class="fa fa-map-marker"></i>123 Office, Los Angeles, CA, USA</h3>
-                            <h3><i class="fa fa-envelope"></i>office@example.com</h3>
-                            <h3><i class="fa fa-phone"></i>+123-456-7890</h3>
-                            <div class="social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                                <a href=""><i class="fab fa-youtube"></i></a>
-                            </div>
+                    <div class="col-md-3">
+
+            {% for i in userprofile %}
+
+                        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab" role="tab"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                            <a class="nav-link" href="/users/{{i.id}}/edit/">EDIT PROFILE</a>
+                            <a class="nav-link" href="/logout"><i class="fa fa-sign-out-alt"></i>Logout</a>
+            {% endfor %}
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="contact-info">
-                            <h2>Our Store</h2>
-                            <h3><i class="fa fa-map-marker"></i>123 Store, Los Angeles, CA, USA</h3>
-                            <h3><i class="fa fa-envelope"></i>store@example.com</h3>
-                            <h3><i class="fa fa-phone"></i>+123-456-7890</h3>
-                            <div class="social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                                <a href=""><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="contact-form">
-                            <form>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel" aria-labelledby="dashboard-nav">
+                                <h4>Dashboard</h4>
+    {% if userprofile %}
+                                    {% for i in userprofile %}
+
+<!--{{message}}-->
+
+                                    <!--                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in. Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus. Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label> Name</label>
+                                    <input class="form-control" name="first_name" type="text" placeholder="Name" value="{{i.user_id}}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>E-mail</label>
+                                    <input class="form-control" name="email" type="text" placeholder="E-mail"  value="{{i.user_id.email}}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Username</label>
+                                    <input class="form-control" name="username" type="text" placeholder="Username" value="{{i.user_id.username}}" required>
+                                </div>
+
+                                                                    {% endfor %}
+{% endif %}
+
+                                <div class="tab-pane fade" id="account-tab" role="tabpanel" aria-labelledby="account-nav">
+                                <h4>Account Details</h4>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Your Name" />
+                                        <input class="form-control" type="text" placeholder="First Name">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="email" class="form-control" placeholder="Your Email" />
+                                        <input class="form-control" type="text" placeholder="Last Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Mobile">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Email">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="text" placeholder="Address">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn">Update Account</button>
+                                        <br><br>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Subject" />
+                                <h4>Password change</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="password" placeholder="Current Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="New Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" placeholder="Confirm Password">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn">Save Changes</button>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="5" placeholder="Message"></textarea>
-                                </div>
-                                <div><button class="btn" type="submit">Send Message</button></div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="contact-map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.733248043701!2d-118.24532098539802!3d34.05071312525937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c648fa1d4803%3A0xdec27bf11f9fd336!2s123%20S%20Los%20Angeles%20St%2C%20Los%20Angeles%2C%20CA%2090012%2C%20USA!5e0!3m2!1sen!2sbd!4v1585634930544!5m2!1sen!2sbd" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </div>
-        <!-- Contact End -->
+        <!-- My Account End -->
         
         <!-- Footer Start -->
         <div class="footer">

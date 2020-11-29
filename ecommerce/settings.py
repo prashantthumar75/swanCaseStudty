@@ -128,7 +128,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'statics/image'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/loginuser/'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -147,4 +147,3 @@ EMAIL_HOST_USER = "prashantthumar75@gmail.com"
 EMAIL_HOST_PASSWORD = "pktprashant@2307"
 
 
-# celery -A src worker -l info -P gevent

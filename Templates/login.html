@@ -1,3 +1,7 @@
+{% load static %}
+
+{% load cart_template_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,11 +34,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <i class="fa fa-envelope"></i>
-                        support@email.com
+                        prashantthumar75@email.com
                     </div>
                     <div class="col-sm-6">
                         <i class="fa fa-phone-alt"></i>
-                        +012-345-6789
+                       +91 9904926409
                     </div>
                 </div>
             </div>
@@ -52,23 +56,15 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="/" class="nav-item nav-link">Home</a>
-                            <a href="/product-list" class="nav-item nav-link">Products</a>
-                            <a href="/product-detail" class="nav-item nav-link">Product Detail</a>
-                            <a href="/cart" class="nav-item nav-link">Cart</a>
-                            <a href="/checkout" class="nav-item nav-link active">Checkout</a>
-                            <a href="/my-account" class="nav-item nav-link">My Account</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">More Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="/wishlist" class="dropdown-item">Wishlist</a>
-                                    <a href="/login" class="dropdown-item">Login & Register</a>
-                                    <a href="/contact" class="dropdown-item">Contact Us</a>
-                                </div>
-                            </div>
+                           <a href="/index/" class="nav-item nav-link">Home</a>
+                            <a href="/product-list/" class="nav-item nav-link">SHOP</a>
+                            <a href="/brand/" class="nav-item nav-link">SHOP BY BRAND</a>
+                            <a href="/cart/" class="nav-item nav-link">Cart</a>
+                            <a href="/profile/" class="nav-item nav-link">My Account</a>
+                            <a href="/loginuser/" class="nav-item nav-link">Login & Register </a>
                         </div>
                           <div class="navbar-nav ml-auto">
-                            <a href="/my-account" class="nav-item nav-link ">{{user}}</a>
+                            <a href="/profile/" class="nav-item nav-link ">{{user}}</a>
                         </div>
                     </div>
                 </nav>
@@ -89,22 +85,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="search">
-                            <input type="text" placeholder="Search">
-                            <button><i class="fa fa-search"></i></button>
-                        </div>
+                             <form method='GET' action="/search/">
+                                <input type="text"  name='q' value='{{ request.GET.q }}' placeholder="Search products">
+                                <button><i class="fa fa-search"></i></button>
+                            </form>
+                       </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="user">
-                            <a href="/wishlist" class="btn wishlist">
-                                <i class="fa fa-heart"></i>
-                                <span>(0)</span>
-                            </a>
-                            <a href="/cart" class="btn cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>(0)</span>
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -128,7 +115,7 @@
                 <div class="row">
                     <div class="col-lg-6">    
                         <div class="register-form">
-                                <form method="post" action="/email/">
+                                <form method="post" action="/register/">
                                     {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6">
@@ -152,7 +139,7 @@
                                     <input class="form-control" type="text" name="password2" placeholder="Password" required>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn">Submit</button>
+                                    <button class="btn">Register</button>
                                 </div>
                             </div>
                                             </form>
@@ -178,7 +165,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn">Submit</button>
+                                    <button class="btn">Login</button>
                                 </div>
                             </div>
                             </form>
