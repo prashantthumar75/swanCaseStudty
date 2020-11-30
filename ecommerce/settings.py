@@ -146,4 +146,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "prashantthumar75@gmail.com"
 EMAIL_HOST_PASSWORD = "pktprashant@2307"
 
+# celery -A proj worker -l INFO
 
