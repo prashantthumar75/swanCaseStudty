@@ -9,10 +9,13 @@ from .models import Item, OrderItem
 def send_email_task(request_id):
     out_of_stock = Item.objects.filter(out_of_stock=True)
     quantity = OrderItem.objects.all().filter(user__id=request_id)
-
     All_Item = []
     for qu in quantity:
         All_Item.append(qu.item)
+        des = Item.objects.filter(item_name=qu.item.item_name)
+        for total in des:
+            total.description = 0
+            total.save()
         qu.quantity = 0 # remove all items from cart
         qu.save()
     removed_ofs = []

@@ -24,7 +24,6 @@ class UserProfile(LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args,**kwargs):
         context = super(UserProfile,self).get_context_data(*args, **kwargs)
         user = Profile.objects.all().filter(user_id=self.request.user)
-        print('user---',user)
         context["userprofile"] = user
 
         return context
@@ -211,6 +210,8 @@ def add_to_cart(request, pk):
         order = order_qs[0]
         if order.items.filter(item__pk=item.pk).exists():
             order_item.quantity += 1
+            item.description = order_item.quantity * item.price
+            item.save()
             order_item.save()
             messages.info(request, "Added quantity Item")
             return redirect("estoreapp:product", pk=order_item.id)
